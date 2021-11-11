@@ -36,6 +36,7 @@ std::string unscramble(Node* morseTree, std::string morse) {
         }
     }
     return result;
+    delete current;
 }
 
 /**
