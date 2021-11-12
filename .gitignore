@@ -4,3 +4,4 @@ a.out
 *.o
 cmake-build-debug/
 a.exe
+.vscode/

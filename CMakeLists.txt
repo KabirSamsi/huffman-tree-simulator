@@ -3,4 +3,4 @@ project(CS_124_Lab_4)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(CS_124_Lab_4 main.cpp binary_tree.hpp)
+add_executable(CS_124_Lab_4 main.cpp binary_tree.hpp HashMap.hpp)
