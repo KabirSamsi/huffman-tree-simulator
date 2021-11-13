@@ -1,0 +1,20 @@
+PROCESS
+1. Develop the data structure definitions (D)
+    a. Build hash function and hashtable definition (D)
+    b. Build Binary Tree definition and basic helper functions (D)
+
+2. Implement with encoding/decoding (K)
+    a. Create functions drawing on Hashtable Definition to transform English text into Morse (K)
+    b. Create functions drawing on BinTree Definition to transform Morse Code into English (K)
+
+3. Memory Testing (D)
+4. Test Case Testing (K)
+5. Writeup (D/K)
+
+TASKS
+- Dmitry:
+    - Implement definitions for BinTree and Hashtable
+    - Make "bulletproof" from memory leaks, test with Valgrind
+- Kabir:
+    - Implement specific structures with cipher
+    - Design basic interface and test cases
