@@ -18,6 +18,12 @@ public:
 template <typename HashMapKey, typename HashMapValue>
 class HashMap {
 public:
+    /**
+     * Constructor for the HashMap class. Accepts a pointer to a
+     * hash function and a size for the hash table.
+     * @param hashFunction
+     * @param capacity
+     */
     HashMap(int (*hashFunction)(HashMapKey), int capacity) {
         this -> hashFunction = hashFunction;
         this -> capacity = capacity;
@@ -26,6 +32,11 @@ public:
             this -> table.push_back(nullptr);
         }
     }
+    /**
+     * Returns true if the hash map contains the given key.
+     * @param key
+     * @return true/false
+     */
     bool exists(HashMapKey key) {
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
@@ -36,6 +47,12 @@ public:
         }
         return false;
     }
+    /**
+     * Returns the value associated with the given key, defaulting to
+     * the default value of the value class if the key is not found.
+     * @param key
+     * @return
+     */
     HashMapValue get(HashMapKey key) {
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
@@ -46,6 +63,11 @@ public:
         }
         return HashMapValue();
     }
+    /**
+     * Sets a key-value pair in the hash map. If the key already exists, it overwrites the value.
+     * @param key
+     * @param value
+     */
     void set(HashMapKey key, HashMapValue value) {
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
@@ -58,6 +80,10 @@ public:
         table[index] = new HashMapNode<HashMapKey, HashMapValue>(key, value);
         size++;
     }
+    /**
+     * Removes the key-value pair with the given key.
+     * @param key
+     */
     void remove(HashMapKey key) {
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
