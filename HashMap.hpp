@@ -1,6 +1,9 @@
 #ifndef CS_124_Lab_4_HASHMAP_HPP
 #define CS_124_Lab_4_HASHMAP_HPP
 
+#include <vector>
+#include <iostream>
+
 template <typename PairKey, typename PairValue>
 class HashMapNode {
 public:
@@ -19,9 +22,8 @@ public:
         this -> hashFunction = hashFunction;
         this -> capacity = capacity;
         this -> size = 0;
-        this -> table = new HashMapNode<HashMapKey, HashMapValue>*[capacity];
         for (int i = 0; i < capacity; i++) {
-            this -> table[i] = nullptr;
+            this -> table.push_back(nullptr);
         }
     }
     bool exists(HashMapKey key) {
@@ -72,13 +74,12 @@ public:
         for (auto i : table) {
             delete i;
         }
-        delete[] table;
     }
 private:
     int (*hashFunction)(HashMapKey);
     int capacity = 0;
     int size = 0;
-    HashMapNode<HashMapKey, HashMapValue>* table[];
+    std::vector<HashMapNode<HashMapKey, HashMapValue>*> table;
 };
 
 
