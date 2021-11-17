@@ -96,12 +96,12 @@ public:
             index = (index + 1) % capacity;
         }
     }
-    ~HashMap() {
-        for (auto i : table) {
-            if (i == nullptr) continue;
-            delete i;
-        }
-    }
+    // ~HashMap() {
+    //     for (auto i : table) {
+    //         if (i == nullptr) continue;
+    //         delete i;
+    //     }
+    // }
 private:
     int (*hashFunction)(HashMapKey);
     int capacity = 0;
