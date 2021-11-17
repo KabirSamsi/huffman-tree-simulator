@@ -93,6 +93,7 @@ int main() {
     std::cout << morseTree.height() << std::endl;
     // inorder(morseTree.getRoot());
 
+    //map.set('|', line);
     //Open other input file and translate
     file.open("english.txt");
         if (file.fail()) {
