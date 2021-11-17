@@ -7,27 +7,22 @@ int hashChar(char c) {
     return (c*31) % 256;
 }
 
-/**
-  @Purpose - Execute main method
-  @return - 0
-  @author - Kabir Samsi
-**/
-
 std::string encode(std::string line, HashMap<char, std::string> map) {
     std::locale loc;
     std::string encoded = "";
     char upper;
-    for (int i = 0; i < line.length()-1; i++) {
+    for (int i = 0; i < line.length(); i++) {
         upper = std::toupper(line.at(i), loc);
         if (map.exists(upper)) {
-            encoded += map.get(upper);
-        }
+            encoded += map.get(upper).substr(2, map.get(upper).length() - 2);
+            encoded += ' ';
+        } else if (upper == ' ') encoded += ' ';
     }
     return encoded;
 }
 
 int main() {
-    HashMap<char, std::string> map(hashChar, 30);
+    HashMap<char, std::string> map(hashChar, 31);
     std::string line;
     std::ifstream file;
     
@@ -41,6 +36,7 @@ int main() {
     //Open other input file and translate
     file.open("english.txt");
     while (getline(file, line)) std::cout << encode(line, map);
+    std::cout << std::endl;
     file.close();
 
     return 0;
