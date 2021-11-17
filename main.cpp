@@ -27,14 +27,16 @@ int main() {
     std::ifstream file;
     
     //Open cipher key and build hashmap
-    file.open("cipher.txt");
+    file.open("../cipher.txt");
+    int count = 0;
     while (getline(file, line)) {
         map.set(line[0], line);
+        count++;
     }
     file.close();
 
     //Open other input file and translate
-    file.open("english.txt");
+    file.open("../english.txt");
     while (getline(file, line)) std::cout << encode(line, map);
     std::cout << std::endl;
     file.close();

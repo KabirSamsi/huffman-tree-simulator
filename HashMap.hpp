@@ -98,6 +98,7 @@ public:
     }
     ~HashMap() {
         for (auto i : table) {
+            if (i == nullptr) continue;
             delete i;
         }
     }
