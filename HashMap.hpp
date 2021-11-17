@@ -38,12 +38,17 @@ public:
      * @return true/false
      */
     bool exists(HashMapKey key) {
+        int count = 0;
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
             if (table[index] -> key == key) {
                 return true;
             }
             index = (index + 1) % capacity;
+            count++;
+            if (count > capacity) {
+                return false;
+            }
         }
         return false;
     }
@@ -55,11 +60,16 @@ public:
      */
     HashMapValue get(HashMapKey key) {
         int index = hashFunction(key) % capacity;
+        int count = 0;
         while (table[index] != nullptr) {
             if (table[index] -> key == key) {
                 return table[index] -> value;
             }
             index = (index + 1) % capacity;
+            count++;
+            if (count > capacity) {
+                break;
+            }
         }
         return HashMapValue();
     }
@@ -69,6 +79,7 @@ public:
      * @param value
      */
     void set(HashMapKey key, HashMapValue value) {
+        int count = 0;
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
             if (table[index] -> key == key) {
@@ -76,6 +87,10 @@ public:
                 return;
             }
             index = (index + 1) % capacity;
+            count++;
+            if (count > capacity) {
+                break;
+            }
         }
         table[index] = new HashMapNode<HashMapKey, HashMapValue>(key, value);
         size++;
@@ -85,6 +100,7 @@ public:
      * @param key
      */
     void remove(HashMapKey key) {
+        int count = 0;
         int index = hashFunction(key) % capacity;
         while (table[index] != nullptr) {
             if (table[index] -> key == key) {
@@ -94,6 +110,10 @@ public:
                 return;
             }
             index = (index + 1) % capacity;
+            count++;
+            if (count > capacity) {
+                return;
+            }
         }
     }
     ~HashMap() {

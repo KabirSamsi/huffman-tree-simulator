@@ -22,7 +22,7 @@ std::string encode(std::string line, HashMap<char, std::string> map) {
 }
 
 int main() {
-    HashMap<char, std::string> map(hashChar, 31);
+    HashMap<char, std::string> map(hashChar, 30);
     std::string line;
     std::ifstream file;
     
@@ -33,8 +33,10 @@ int main() {
         map.set(line[0], line);
         count++;
     }
+    std::cout << count;
     file.close();
 
+    //map.set('|', line);
     //Open other input file and translate
     file.open("../english.txt");
     while (getline(file, line)) std::cout << encode(line, map);
