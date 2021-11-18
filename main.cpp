@@ -30,7 +30,7 @@ std::string encode(std::string line, HashMap<char, std::string> map) {
     for (int i = 0; i < line.length(); i++) { //Iterate through line
         upper = std::toupper(line.at(i), loc);
         if (map.exists(upper)) { //Check if character exists in map
-            encoded += map.get(upper).substr(2, map.get(upper).length() - 2); //Add map cipher value of character key
+            encoded += map.get(upper).substr(2, map.get(upper).length() - 1); //Add map cipher value of character key
             encoded += ' ';
         } else if (upper == ' ') encoded += ' '; //Add an extra space
     }
@@ -87,6 +87,13 @@ void build(std::string line, BinaryTreeNode<char>* root) {
     current_node->data = line.at(0); //Set the value to be the starting sequence character (cipher key)
 }
 
+void inorder(BinaryTreeNode<char>* node) {
+    if (node == nullptr) return;
+    inorder(node->left);
+    std::cout << node->data;
+    inorder(node->right);
+}
+
 /**
   @Purpose - Read through a morse sequence and decode it to plain text
   @param line - The line to be read and translated
@@ -106,7 +113,9 @@ std::string decode(std::string line, BinaryTreeNode<char>* root) {
         else if (line.at(i) == '-') current_node = current_node->right;
         else if (current_node->data != ' ') { //If word ends (don't evaluate blank trees)
             //If word is at the start of the sentence (either start of phrase or preceded by ". "), add capitalized character
-            if (decoded.length() == 0 || decoded.substr(decoded.length()-2, 2) == ". ") {
+            if (decoded.length() == 0) {
+                decoded += current_node->data;
+            } else if (decoded.length() > 1 && decoded.substr(decoded.length()-2, 2) == ". ") {
                 decoded += current_node->data;
             } else { //Otherwise, add lowercase character
                 decoded += std::tolower(current_node->data, loc);
@@ -129,6 +138,7 @@ void interface() {
     HashMap<char, std::string> map(hashChar, 31);
     BinaryTree<char> morseTree(' ');
     std::string line;
+    std::string filename;
     std::ifstream file;
 
     file.open("cipher.txt"); //Open cipher key
@@ -143,7 +153,9 @@ void interface() {
     }
     file.close();
 
-    file.open("english.txt"); //Open English input file and encode to Morse Code
+    std::cout << "What file would you like to encode? ";
+    std::cin >> filename;
+    file.open(filename); //Open English input file and encode to Morse Code
     if (file.fail()) {
         std::cout << "An error occurred";
         return;
@@ -156,8 +168,9 @@ void interface() {
         std::cout << std::endl;
     }
     file.close();
-    std::cout << std::endl;
 
+    std::cout << std::endl << "What file would you like to decode? ";
+    std::cin >> filename;
     file.open("input.txt"); //Open Morse Code file and decode to English
     if (file.fail()) {
         std::cout << "An error occurred";
@@ -170,6 +183,18 @@ void interface() {
         std::cout << decode(line, morseTree.getRoot());
         std::cout << std::endl;
     }
+    file.close();
+}
+
+char checkPlaying() {
+    char playing;
+    std::cout << "Would you like to view our program? Y/N: ";
+    std::cin >> playing;
+    while (playing != 'Y' && playing != 'N') {
+        std::cout << "Invalid command, Enter Y or N. Please try again: ";
+        std::cin >> playing;
+    }
+    return playing;
 }
 
 /**
@@ -182,7 +207,6 @@ int main() {
     std::string line;
     std::ifstream file;
     std::string name;
-    char playing;
 
     std::cout << "What is your name? "; //User greeting
     getline(std::cin, name);
@@ -196,14 +220,12 @@ int main() {
 
     while (getline(file, line)) std::cout << line << std::endl;
     file.close();
-    std::cout << "Would you like to view our program? Y/N: ";
-    std::cin >> playing;
+    char playing = checkPlaying();
 
     while (playing == 'Y') { //Continue program loop while user wants to play
         std::cout << std::endl;
         interface();
-        std::cout << "\nWould you like to view this again? Y/N: "; //Repeat loop method
-        std::cin >> playing;
+        playing = checkPlaying();
     }
     std::cout << "Thanks for checking this out, " << name << "! Goodbye." << std::endl; //Exit message
     return 0;
