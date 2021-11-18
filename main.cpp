@@ -77,17 +77,17 @@ void inorder(BinaryTreeNode<char>* node) {
     inorder(node->right);
 }
 
-int main() {
+void interface() {
     HashMap<char, std::string> map(hashChar, 31);
     BinaryTree<char> morseTree(' ');
     std::string line;
     std::ifstream file;
-    
+
     //Open cipher key and build hashmap
     file.open("cipher.txt");
     if (file.fail()) {
         std::cout << "An error occurred";
-        return 0;
+        return;
     }
 
     while (getline(file, line)) {
@@ -100,11 +100,11 @@ int main() {
     file.open("english.txt");
     if (file.fail()) {
         std::cout << "An error occurred";
-        return 0;
+        return;
     }
 
     while (getline(file, line)) {
-        std::cout << "Original: " << line << std::endl;
+        std::cout << "Original English Text: " << line << std::endl;
         std::cout << "Encoded: ";
         std::cout << encode(line, map);
         std::cout << std::endl;
@@ -115,7 +115,7 @@ int main() {
     file.open("input.txt");
     if (file.fail()) {
         std::cout << "An error occurred";
-        return 0;
+        return;
     }
 
     while (getline(file, line)) {
@@ -124,5 +124,35 @@ int main() {
         std::cout << decode(line, morseTree.getRoot());
         std::cout << std::endl;
     }
+}
+
+int main() {
+    std::string line;
+    std::ifstream file;
+    std::string name;
+    char playing;
+
+    std::cout << "What is your name? ";
+    getline(std::cin, name);
+    std::cout << "Hello " << name << "!" << std::endl;
+
+    file.open("description.txt");
+    if (file.fail()) {
+        std::cout << "An error occurred";
+        return 0;
+    }
+
+    while (getline(file, line)) std::cout << line << std::endl;
+    file.close();
+    std::cout << "Would you like to view our program? Y/N: ";
+    std::cin >> playing;
+
+    while (playing == 'Y') {
+        std::cout << std::endl;
+        interface();
+        std::cout << "\nWould you like to view this again? Y/N: ";
+        std::cin >> playing;
+    }
+    std::cout << "Thanks for checking this out, " << name << "! Goodbye." << std::endl;
     return 0;
 }

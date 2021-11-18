@@ -1,0 +1,4 @@
+Welcome to the Morse Code Translator! Developed by Kabir Samsi and Dmitry Pleshkov.
+Our program consists of two parts:
+    - It first reads in an English text file and encodes it through a cipher with a hashmap. This is done through a simple hash function with the cipher.
+    - It then reads a file in Morse Code and decodes it to English through binary tree traversal. It reads each dot or dash in the cipher as a traversal left or right.
