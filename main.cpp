@@ -149,6 +149,7 @@ void interface() {
     BinaryTree<char> morseTree(' ');
     std::string line;
     std::ifstream file;
+    std::string filename;
 
     file.open(PREFIX+"cipher.txt"); //Open cipher key
     if (file.fail()) {
