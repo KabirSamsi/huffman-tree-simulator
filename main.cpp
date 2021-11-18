@@ -22,7 +22,7 @@ std::string encode(std::string line, HashMap<char, std::string> map) {
     return encoded;
 }
 
-void build_left(char val, BinaryTreeNode<char>* node) {
+void build_left(char val, BinaryTreeNode<char>* &node) {
     if (node->left == nullptr) {
         BinaryTreeNode<char>* newNode = new BinaryTreeNode<char>(val);
         node->left = newNode;
@@ -30,7 +30,7 @@ void build_left(char val, BinaryTreeNode<char>* node) {
     node = node->left;
 }
 
-void build_right(char val, BinaryTreeNode<char>* node) {
+void build_right(char val, BinaryTreeNode<char>* &node) {
     if (node->right == nullptr) {
         BinaryTreeNode<char>* newNode = new BinaryTreeNode<char>(val);
         node->right = newNode;
@@ -45,23 +45,28 @@ void build(std::string line, BinaryTreeNode<char>* root) {
         else if (line.at(i) == '-') build_right(' ', current_node);
     }
     current_node->data = line.at(0);
-    std::cout << root->data << " " << current_node->data << std::endl;
 }
 
-std::string decode(std::string line, BinaryTree<char> tree) {
+std::string decode(std::string line, BinaryTreeNode<char>* root) {
     std::locale loc;
     std::string decoded = "";
-    BinaryTreeNode<char>* current_node = tree.getRoot();
+    bool sentenceStart;
+    BinaryTreeNode<char>* current_node = root;
 
     for (int i = 0; i < line.length(); i++) {
         if (line.at(i) == '.') current_node = current_node->left;
         else if (line.at(i) == '-') current_node = current_node->right;
-        else {
-            decoded += current_node->data;
-            current_node = tree.getRoot();
+        else if (current_node->data != ' ') {
+            if (decoded.length() == 0 || decoded.at(decoded.length()-1) == ' ' && decoded.at(decoded.length()-2) == '.') {
+                decoded += current_node->data;
+            } else {
+                decoded += std::tolower(current_node->data, loc);
+            }
+            current_node = root;
             if (i+1 < line.length() && line.at(i+1) == ' ') decoded += ' ';
         }
     }
+    decoded += current_node->data;
     return decoded;
 }
 
@@ -90,13 +95,10 @@ int main() {
         build(line, morseTree.getRoot());
     }
     file.close();
-    std::cout << morseTree.height() << std::endl;
-    // inorder(morseTree.getRoot());
 
-    //map.set('|', line);
     //Open other input file and translate
     file.open("english.txt");
-        if (file.fail()) {
+    if (file.fail()) {
         std::cout << "An error occurred";
         return 0;
     }
@@ -108,5 +110,19 @@ int main() {
         std::cout << std::endl;
     }
     file.close();
+    std::cout << std::endl;
+
+    file.open("input.txt");
+    if (file.fail()) {
+        std::cout << "An error occurred";
+        return 0;
+    }
+
+    while (getline(file, line)) {
+        std::cout << "Original: " << line << std::endl;
+        std::cout << "Decoded: ";
+        std::cout << decode(line, morseTree.getRoot());
+        std::cout << std::endl;
+    }
     return 0;
 }
