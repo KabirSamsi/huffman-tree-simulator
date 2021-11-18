@@ -119,7 +119,7 @@ public:
     ~HashMap() {
         for (int i = 0; i < capacity; i++) {
             if (table[i] == nullptr) continue;
-            delete table[i];
+            delete *table[i];
         }
     }
 private:
