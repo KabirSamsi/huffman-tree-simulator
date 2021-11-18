@@ -32,6 +32,7 @@ public:
             this -> table.push_back(nullptr);
         }
     }
+
     /**
      * Returns true if the hash map contains the given key.
      * @param key
@@ -52,6 +53,7 @@ public:
         }
         return false;
     }
+
     /**
      * Returns the value associated with the given key, defaulting to
      * the default value of the value class if the key is not found.
@@ -73,6 +75,7 @@ public:
         }
         return HashMapValue();
     }
+
     /**
      * Sets a key-value pair in the hash map. If the key already exists, it overwrites the value.
      * @param key
@@ -93,9 +96,9 @@ public:
             }
         }
         table[index] = new HashMapNode<HashMapKey, HashMapValue>(key, value);
-        std::cout << table[index] << std::endl;
         size++;
     }
+
     /**
      * Removes the key-value pair with the given key.
      * @param key
@@ -117,13 +120,15 @@ public:
             }
         }
     }
-    ~HashMap() {
-        std::cout << "calling destructor" << std::endl;
+
+    /*~HashMap() {
+        std::cout << "Destructor called" << std::endl;
         for (int i = 0; i < capacity; i++) {
             if (table[i] == nullptr) continue;
+            std::cout << table[i];
             delete table[i];
         }
-    }
+    }*/
 private:
     int (*hashFunction)(HashMapKey);
     int capacity = 0;
