@@ -87,11 +87,19 @@ void build(std::string line, BinaryTreeNode<char>* root) {
     current_node->data = line.at(0); //Set the value to be the starting sequence character (cipher key)
 }
 
-void inorder(BinaryTreeNode<char>* node) {
-    if (node == nullptr) return;
-    inorder(node->left);
-    std::cout << node->data;
-    inorder(node->right);
+/**
+  @Purpose - Checks if a line is in morse code or plain text
+  @param line - The sequence to be read and encoded/decoded
+  @return - Whether line is morse or not
+  @author - Kabir Samsi
+**/
+
+bool checkMorse(std::string line) {
+    for (int i = 0; i < line.length(); i++) {
+        //If there are any characters besides dots, dashes and spaces, it is not morse
+        if (line[i] != '.' && line[i] != '-' && line[i] != ' ') return false;
+    }
+    return true;
 }
 
 /**
@@ -153,7 +161,7 @@ void interface() {
     }
     file.close();
 
-    std::cout << "What file would you like to encode? ";
+    std::cout << "What file would you like to read? ";
     std::cin >> filename;
     file.open(filename); //Open English input file and encode to Morse Code
     if (file.fail()) {
@@ -162,35 +170,37 @@ void interface() {
     }
 
     while (getline(file, line)) { //Output encoded version
-        std::cout << "Original English Text: " << line << std::endl;
-        std::cout << "Encoded: ";
-        std::cout << encode(line, map);
-        std::cout << std::endl;
-    }
-    file.close();
-
-    std::cout << std::endl << "What file would you like to decode? ";
-    std::cin >> filename;
-    file.open("input.txt"); //Open Morse Code file and decode to English
-    if (file.fail()) {
-        std::cout << "An error occurred";
-        return;
-    }
-
-    while (getline(file, line)) { //Output decoded version
         std::cout << "Original: " << line << std::endl;
-        std::cout << "Decoded: ";
-        std::cout << decode(line, morseTree.getRoot());
-        std::cout << std::endl;
+        if (checkMorse(line)) {
+            std::cout << "Decoded: ";
+            std::cout << decode(line, morseTree.getRoot());
+            std::cout << std::endl;
+
+        } else {
+            std::cout << "Encoded: ";
+            std::cout << encode(line, map);
+            std::cout << std::endl;
+        }
     }
     file.close();
 }
 
-char checkPlaying() {
+
+/**
+  @Purpose - Check if a user wants to view the program
+  @param redo - Check if the user wants to  view the program
+  @return - Final action (Y/N)
+  @author - Kabir Samsi
+**/
+
+char checkPlaying(bool redo) {
     char playing;
-    std::cout << "Would you like to view our program? Y/N: ";
+    //Different message if user is redoing
+    if (redo) std::cout << "Would you like to view this again? Y/N: ";
+    else std::cout << "Would you like to view our program? Y/N: ";
+
     std::cin >> playing;
-    while (playing != 'Y' && playing != 'N') {
+    while (playing != 'Y' && playing != 'N') { //Repeat until user enters a valid command
         std::cout << "Invalid command, Enter Y or N. Please try again: ";
         std::cin >> playing;
     }
