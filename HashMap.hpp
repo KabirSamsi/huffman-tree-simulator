@@ -117,9 +117,9 @@ public:
         }
     }
     ~HashMap() {
-        for (auto i : table) {
-            if (i == nullptr) continue;
-            delete i;
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] == nullptr) continue;
+            delete table[i];
         }
     }
 private:
