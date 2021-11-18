@@ -127,13 +127,13 @@ public:
         }
     }
 
-    /*~HashMap() {
+    ~HashMap() {
         for (int i = 0; i < capacity; i++) {
             if (table[i] == nullptr) continue;
             (*table[i]).key;
             delete table[i];
         }
-    }*/
+    }
 private:
     int (*hashFunction)(HashMapKey);
     int capacity = 0;

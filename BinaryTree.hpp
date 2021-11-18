@@ -22,6 +22,15 @@ public:
         }
         return 1 + std::max(leftHeight, rightHeight);
     }
+    void destruct() {
+        if (this -> left != nullptr) {
+            this -> left -> destruct();
+        }
+        if (this -> right != nullptr) {
+            this -> right -> destruct();
+        }
+        delete this;
+    }
 };
 
 template <typename BinaryTreeType>
@@ -44,7 +53,7 @@ public:
         return this -> root->height();
     }
     ~BinaryTree() {
-
+        this -> root -> destruct();
     }
 private:
     BinaryTreeNode<BinaryTreeType>* root;
