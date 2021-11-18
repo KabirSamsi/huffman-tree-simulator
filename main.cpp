@@ -198,13 +198,17 @@ void interface() {
 char checkPlaying(bool redo) {
     char playing;
     //Different message if user is redoing
-    if (redo) std::cout << "Would you like to view this again? Y/N: ";
-    else std::cout << "Would you like to view our program? Y/N: ";
+    if (redo) std::cout << std::endl << "Would you like to view this again? Y/N: ";
+    else std::cout << std::endl << "Would you like to view our program? Y/N: ";
 
     std::cin >> playing;
+    bool outputted = false;
     while (playing != 'Y' && playing != 'N') { //Repeat until user enters a valid command
-        std::cout << "Invalid command, Enter Y or N. Please try again: ";
-        std::cin >> playing;
+        if (!outputted) {
+            std::cout << "Invalid command, Enter Y or N. Please try again: ";
+            std::cin >> playing;
+            outputted = true;
+        }
     }
     return playing;
 }
@@ -233,15 +237,13 @@ int main() {
 
     while (getline(file, line)) std::cout << line << std::endl;
     file.close();
-    std::cout << "Would you like to view our program? Y/N: ";
-    std::cin >> playing;
+    playing = checkPlaying(false);
 
     while (playing == 'Y') { //Continue program loop while user wants to play
-        std::cout << std::endl;
         interface();
-        std::cout << "\nWould you like to view this again? Y/N: "; //Repeat loop method
-        std::cin >> playing;
+        playing = checkPlaying(true);
     }
+
     std::cout << "Thanks for checking this out, " << name << "! Goodbye." << std::endl; //Exit message
     return 0;
 }
