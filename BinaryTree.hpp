@@ -1,5 +1,9 @@
 #include <iostream>
 
+/**
+ * A Binary Tree Node
+ * @tparam BinaryTreeNodeType
+ */
 template <typename BinaryTreeNodeType>
 class BinaryTreeNode {
 public:
@@ -36,8 +40,8 @@ public:
 template <typename BinaryTreeType>
 class BinaryTree {
 public:
-    BinaryTree(char data) {
-        BinaryTreeNode<char>* newNode = new BinaryTreeNode<char>(data);
+    explicit BinaryTree(BinaryTreeType data) {
+        auto* newNode = new BinaryTreeNode<BinaryTreeType>(data);
         this -> root = newNode;
     }
     explicit BinaryTree(BinaryTreeNode<BinaryTreeType>* root) {
@@ -50,7 +54,7 @@ public:
         this -> root = newRoot;
     }
     int height() {
-        return this -> root->height();
+        return this -> root -> height();
     }
     ~BinaryTree() {
         this -> root -> destruct();
