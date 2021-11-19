@@ -4,7 +4,7 @@
 #include "HashMap.hpp"
 #include "BinaryTree.hpp"
 
-std::string PREFIX = "../";
+std::string PREFIX = "";
 
 /**
   @Purpose - Hash a character
