@@ -4,7 +4,7 @@
 #include "HashMap.hpp"
 #include "BinaryTree.hpp"
 
-std::string PREFIX = "";
+std::string PREFIX = "../";
 
 /**
   @Purpose - Hash a character
@@ -25,12 +25,12 @@ int hashChar(char c) {
   @author - Kabir Samsi
 **/
 
-std::string encode(std::string line, HashMap<char, std::string> map) {
+std::string encode(const std::string& line, HashMap<char, std::string>& map) {
     std::locale loc; //Used to convert to uppercase as needed
-    std::string encoded = "";
+    std::string encoded;
     char upper;
-    for (int i = 0; i < line.length(); i++) { //Iterate through line
-        upper = std::toupper(line.at(i), loc);
+    for (char i : line) { //Iterate through line
+        upper = std::toupper(i, loc);
         if (map.exists(upper)) { //Check if character exists in map
             encoded += map.get(upper).substr(2, map.get(upper).length() - 2); //Add map cipher value of character key
             encoded += ' ';
@@ -49,7 +49,7 @@ std::string encode(std::string line, HashMap<char, std::string> map) {
 
 void build_left(char val, BinaryTreeNode<char>* &node) {
     if (node->left == nullptr) { //If there is no node on the left, build one and add it to the left
-        BinaryTreeNode<char>* newNode = new BinaryTreeNode<char>(val);
+        auto* newNode = new BinaryTreeNode<char>(val);
         node->left = newNode;
     }
     node = node->left; //Traverse left
@@ -65,7 +65,7 @@ void build_left(char val, BinaryTreeNode<char>* &node) {
 
 void build_right(char val, BinaryTreeNode<char>* &node) {
     if (node->right == nullptr) { //If there is no node on the right, build on and add it to the right
-        BinaryTreeNode<char>* newNode = new BinaryTreeNode<char>(val);
+        auto* newNode = new BinaryTreeNode<char>(val);
         node->right = newNode;
     }
     node = node->right; //Traverse right
@@ -97,9 +97,9 @@ void build(std::string line, BinaryTreeNode<char>* root) {
 **/
 
 bool checkMorse(std::string line) {
-    for (int i = 0; i < line.length(); i++) {
+    for (char i : line) {
         //If there are any characters besides dots, dashes and spaces, it is not morse
-        if (line[i] != '.' && line[i] != '-' && line[i] != ' ') return false;
+        if (i != '.' && i != '-' && i != ' ') return false;
     }
     return true;
 }
@@ -114,7 +114,7 @@ bool checkMorse(std::string line) {
 
 std::string decode(std::string line, BinaryTreeNode<char>* root) {
     std::locale loc;
-    std::string decoded = "";
+    std::string decoded;
     BinaryTreeNode<char>* current_node = root; //Set current tracker node to traverse tree
 
     for (int i = 0; i < line.length(); i++) { //Iterate through entire line
@@ -158,7 +158,8 @@ void interface() {
     }
 
     while (getline(file, line)) { //Build hashtable and binary tree implementation
-        map.set(line[0], line);
+        std::string temp = line;
+        map.set(line[0], temp);
         build(line, morseTree.getRoot());
     }
     file.close();

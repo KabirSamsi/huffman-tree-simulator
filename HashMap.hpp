@@ -5,18 +5,9 @@
 #include <iostream>
 
 template <typename PairKey, typename PairValue>
-class HashMapNode {
-public:
+struct HashMapNode {
     PairKey key;
     PairValue value;
-    HashMapNode(PairKey key, PairValue value) {
-        this -> key = key;
-        this -> value = value;
-    }
-    HashMapNode() {
-        this -> key = PairKey();
-        this -> value = PairValue();
-    }
 };
 
 template <typename HashMapKey, typename HashMapValue>
@@ -99,9 +90,7 @@ public:
                 break;
             }
         }
-        table[index] = new HashMapNode<HashMapKey, HashMapValue>();
-        table[index] -> value = value;
-        table[index] -> key = key;
+        table[index] = new HashMapNode<HashMapKey, HashMapValue>{key, value};
         size++;
     }
 
@@ -130,7 +119,6 @@ public:
     ~HashMap() {
         for (int i = 0; i < capacity; i++) {
             if (table[i] == nullptr) continue;
-            (*table[i]).key;
             delete table[i];
         }
     }
