@@ -167,9 +167,10 @@ void interface() {
     std::cout << "What file would you like to read? ";
     std::cin >> filename;
     file.open(PREFIX+filename); //Open English input file and encode to Morse Code
-    if (file.fail()) {
-        std::cout << "An error occurred";
-        return;
+    while (file.fail()) {
+        std::cout << "Unable to find file, please enter again: ";
+        std::cin >> filename;
+        file.open(PREFIX+filename); //Open English input file and encode to Morse Code
     }
 
     while (getline(file, line)) { //Output encoded version
