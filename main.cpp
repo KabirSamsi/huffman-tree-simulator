@@ -158,10 +158,10 @@ void interface() {
     }
 
     while (getline(file, line)) { //Build hashtable and binary tree implementation
-        std::string temp = line;
-        map.set(line[0], temp);
+        map.set(line[0], line);
         build(line, morseTree.getRoot());
     }
+
     file.close();
 
     std::cout << "What file would you like to read? ";
