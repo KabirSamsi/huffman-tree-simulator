@@ -4,7 +4,7 @@
 #include "HashMap.hpp"
 #include "BinaryTree.hpp"
 
-std::string PREFIX = "";
+std::string PREFIX = "../";
 
 /**
   @Purpose - Hash a character
@@ -96,7 +96,7 @@ void build(std::string line, BinaryTreeNode<char>* root) {
   @author - Kabir Samsi
 **/
 
-bool checkMorse(std::string line) {
+bool checkMorse(const std::string& line) {
     for (char i : line) {
         //If there are any characters besides dots, dashes and spaces, it is not morse
         if (i != '.' && i != '-' && i != ' ') return false;
@@ -123,9 +123,7 @@ std::string decode(std::string line, BinaryTreeNode<char>* root) {
         else if (line.at(i) == '-') current_node = current_node->right;
         else if (current_node->data != ' ') { //If word ends (don't evaluate blank trees)
             //If word is at the start of the sentence (either start of phrase or preceded by ". "), add capitalized character
-            if (decoded.length() == 0) {
-                decoded += current_node->data;
-            } else if (decoded.length() > 1 && decoded.substr(decoded.length()-2, 2) == ". ") {
+            if (decoded.length() == 0 || decoded.length() > 1 && decoded.substr(decoded.length()-2, 2) == ". ") {
                 decoded += current_node->data;
             } else { //Otherwise, add lowercase character
                 decoded += std::tolower(current_node->data, loc);
