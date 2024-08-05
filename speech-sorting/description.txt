@@ -1,0 +1,11 @@
+Welcome to CS124 Lab 2 (Sort and Search Averages). This program aims to perform and analyze the sorting of three different works of literature, and compare average times.
+One text sample is around 5000 words long ("The Necklace" by Guy de Maupessant and "Gift of the Magi" by O. Henry).
+One text sample is around 10000 words long (the first 3 chapters of "The Pearl" by John Steinbeck).
+One text sample is around 20000 words long (the first 13 chapters of "The Da Vinci Code" by Dan Brown).
+The user prompts the algorithm to open two text files. Those two are both opened and read. Each word has excess punctuation (except for apostrophes and hyphens) and stored in a vector.
+This vector is then sorted alphabetically twenty-five times in total - using the five main sorting algorithms, and timing each one five times.
+Each algorithm is timed using the Chrono High-Res Clock, and its average time is calculated over five iterations. This is then outputted to the screen.
+Following the sorts, the last 50 words of the vector are printed out to the screen.
+The user is then prompted to search for a word in the vector. The quicksort-sorted vector is selected, and the word is searched for (case-insensitive) using Linear Search (unsorted), Linear Search (sorted) and Binary Search.
+These are timed and outputted to the screen as well.
+The user is then prompted to repeat the algorithm, or can exit.

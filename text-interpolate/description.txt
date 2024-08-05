@@ -1,0 +1,5 @@
+Welcome to Lab 3 - Reversing Text!
+This program first opens a text file of your choice. It then proceeds to open this file, which is either a poem or a paragraph-long prose statement.
+It first evaluates whether or not an excerpt is in prose or poem format based on its length.
+It implements the stack and queue data structures to evaluate whether text is inverted, and accordingly prints it out.
+The resultant data is then written to a text file.

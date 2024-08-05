@@ -1,0 +1,8 @@
+Welcome to CS124 Lab 1 (Speech Analysis Program). This program aims to analyze three different speeches from two genres.
+Two of the speeches are politically aligned - US President Joe Biden's victory speech (2021) and New Zealand Prime Minister Jacinda Arden's COVID-19 Address (2020).
+The third speech is a commencement speech - Steve Jobs' Stanford Commencement Address (2005).
+All three speeches are opened and read from one text file. Each word is standardized (converted to lowercase and removed of punctuation) and stored in a vector.
+This vector is then sorted alphabetically, utilizing three quadratic-time sorting algorithms - Selection Sort, Bubblesort and Insertion Sort.
+Each algorithm is timed using the Chrono High-Res Clock, and compared (on both sorted and unsorted vectors) and the algorithm running time is outputted to the screen.
+Following the sort, the last 50 words of the vector, and the first 50 unique words, are printed out to the screen.
+The most frequent words in the vector are then outputted in order of frequency (with fillers and short words removed).
